@@ -1,0 +1,12 @@
+---
+
+# This playbook used to generate auth token.
+- hosts: authserver
+  connection: local
+  user: <username>
+
+  roles:
+  - auth
+
+  tags:
+  - auth

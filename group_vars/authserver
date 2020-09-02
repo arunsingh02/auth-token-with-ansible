@@ -1,0 +1,8 @@
+---
+# The variables file used by the playbooks in the authenticate.
+
+auth_ip: <auth-ip>
+grant_type: password
+client_id: <client-id>
+username: <username>
+password: <password>
