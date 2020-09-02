@@ -1,0 +1,28 @@
+---
+# This role will generate and store auth token to access mnode API's.
+
+- name: Get authenticate token
+  uri:
+    url: "https://{{ auth_ip }}/auth/connect/token"
+    method: POST
+    return_content: yes
+    status_code: 200, 400
+    validate_certs: no
+    body_format: form-urlencoded
+    body:
+      grant_type: "{{ grant_type }}"
+      client_id: "{{ client_id }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+  register: authentication
+  until: authentication.status == 200
+  retries: 5
+  delay: 2 # Every 2 seconds
+  environment:
+    TOKEN: authentication.json.access_token
+
+- debug:
+    msg: "The auth token is {{ authentication.json.access_token }}"
+
+- debug:
+    msg: "{{ ansible_env.HOME }}"
